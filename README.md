@@ -1,8 +1,9 @@
 # Wedding
 My first personal MVC-project was this wedding site. 
 As a product owner, I do see a lot of code in my everyday job, but don't get to code much myself.<br>
-
 The aim was to create an MVC-application in ASP.NET to learn basic setups of the trade. The purpose of creating it was to provide myself and Lisa with an easy-to-use platform as a wedding RSVP-application.<br><br>
+
+### Phase 1
 In practical terms, this meant setting up an SQL-server database in Azure, where I created a set of guests, and combined them into couples and families by adding a token, which was then sent to them on the back of their invitation.<br>
 Upon login in to the site via one of the external providers used (Facebook, Microsoft, Google) or by creating a local account, they were prompted with an input where the token was added, which then gave them access to RSVP to their whole family.<br>
 The RSVP itself was editable, so the token was stored together with the userid in the ASPNetUsers-table.<br><br>
