@@ -14,66 +14,66 @@ Once the project was up and running, and the RSVP's started flowing in, I began 
 Part of the first upload to blob:<br>
 ```c#
  
-                    for (int i = 0; i < files.Count(); i++)
-                    {
-                        var file = files[i];
+ for (int i = 0; i < files.Count(); i++)
+ {
+     var file = files[i];
 
-                        var exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
-                        String fileextention;
-                        fileextention = Path.GetExtension(file.FileName).ToLower();
+     var exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
+     String fileextention;
+     fileextention = Path.GetExtension(file.FileName).ToLower();
 
-                        String uploadtime = DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss.fff");
+     String uploadtime = DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss.fff");
 
-                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(uploadtime + fileextention);
+     CloudBlockBlob blockBlob = container.GetBlockBlobReference(uploadtime + fileextention);
 
-                        blockBlob.UploadFromStream(file.InputStream);
+     blockBlob.UploadFromStream(file.InputStream);
 
 ```
 <br>
 In order to read the EXIF-data from the uploaded images (for sorting on date-taken), I had to play around quite a bit. I solved it like this:<br>
 ```c#
-                 file.InputStream.Position = 0;
+ file.InputStream.Position = 0;
 
-                        byte[] imageData = new byte[file.ContentLength];
+        byte[] imageData = new byte[file.ContentLength];
 
-                        file.InputStream.Read(imageData, 0, file.ContentLength);
+        file.InputStream.Read(imageData, 0, file.ContentLength);
 
-                        using (Stream inputStream = file.InputStream)
-                        {
-                            MemoryStream ms = inputStream as MemoryStream;
-                            if (ms == null)
-                            {
-                                ms = new MemoryStream(imageData);
-                                StreamReader sr = new StreamReader(ms);
+        using (Stream inputStream = file.InputStream)
+        {
+            MemoryStream ms = inputStream as MemoryStream;
+            if (ms == null)
+            {
+                ms = new MemoryStream(imageData);
+                StreamReader sr = new StreamReader(ms);
 
-                                inputStream.CopyTo(ms);
-                            }
+                inputStream.CopyTo(ms);
+            }
 
-                            Image originalImage = Image.FromStream(ms);
+            Image originalImage = Image.FromStream(ms);
 
-                            exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
+            exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
 
-                            int DateTakenValue = 0x9003; //36867;
-                            CultureInfo provider = CultureInfo.InvariantCulture;
+            int DateTakenValue = 0x9003; //36867;
+            CultureInfo provider = CultureInfo.InvariantCulture;
 
-                            if (!originalImage.PropertyIdList.Contains(DateTakenValue))
-                            {
-                                exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
-                            }
-                            else
-                            {
-                                string dateTakenTag = System.Text.Encoding.ASCII.GetString(originalImage.GetPropertyItem(DateTakenValue).Value);
-                                string[] parts = dateTakenTag.Split(':', ' ');
-                                int year = int.Parse(parts[0]);
-                                int month = int.Parse(parts[1]);
-                                int day = int.Parse(parts[2]);
-                                int hour = int.Parse(parts[3]);
-                                int minute = int.Parse(parts[4]);
-                                int second = int.Parse(parts[5]);
+            if (!originalImage.PropertyIdList.Contains(DateTakenValue))
+            {
+                exifcreateddatetime = new DateTime(2020, 3, 24, 8, 43, 00);
+            }
+            else
+            {
+                string dateTakenTag = System.Text.Encoding.ASCII.GetString(originalImage.GetPropertyItem(DateTakenValue).Value);
+                string[] parts = dateTakenTag.Split(':', ' ');
+                int year = int.Parse(parts[0]);
+                int month = int.Parse(parts[1]);
+                int day = int.Parse(parts[2]);
+                int hour = int.Parse(parts[3]);
+                int minute = int.Parse(parts[4]);
+                int second = int.Parse(parts[5]);
 
-                                exifcreateddatetime = new DateTime(year, month, day, hour, minute, second);
-                            }
-                        }
+                exifcreateddatetime = new DateTime(year, month, day, hour, minute, second);
+            }
+        }
 
 ```
 <br>
