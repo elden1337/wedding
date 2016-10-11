@@ -77,7 +77,11 @@ In order to read the EXIF-data from the uploaded images (for sorting on date-tak
 
 ```
 <br>
+A quick schema of the upload and image-resize through webjob *(webjob not present in this repo)*<br>
+![webjob schema](/Readmefiles/azure_webjob_schema.jpg)<br><br>
+
 I then uploaded parameters to the media-table in the database and showed it on an admin-page for approval, before exposing the images to all the guests.<br>
+<hr>
 
 <br>
 What I learnt and experimented with during the project:
