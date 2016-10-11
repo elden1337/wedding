@@ -1,0 +1,60 @@
+﻿@model Wedding.Models.Guest.GuestIndexModel
+
+
+@{
+    ViewBag.Title = "Anmälan";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+    <h3>Anmälan</h3>
+
+    @if (Model.ManagedTokens.Count > 0)
+            {
+    
+        <div>
+
+            @foreach (var token in Model.ManagedTokens)
+                {
+
+                <h4>Din anmälningsskod är: @token.Token</h4>
+<h4>                <a href="@Url.Action("ManageGuests", "Guest", new { token = token.Token })">
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Tryck här för att komma till din inbjudan.</button>
+                </a></h4>
+
+
+                    if (token.Token == "ulvön")
+                    {
+                    <br />
+                    <a href="@Url.Action("ViewAllGuests", "Guest", new { token = token.Token })">Se alla gäster</a>
+
+                }
+                }
+        </div>
+            }
+            else
+            {
+        <h4>Fyll i anmälningskoden du hittar på baksidan av din inbjudan:</h4>
+
+                    using (Html.BeginForm("AddToken", "Guest", FormMethod.Post))
+                           {
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                            <input type="text" name="token" class="mdl-textfield__input" />
+                            <label for="token" class="mdl-textfield__label">Anmälningskod</label>
+                            
+                        </div>
+                        <br />
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Lägg till</button>
+                           }
+
+                        }
+                        
+                    </article>
+</div>
+</div>
+

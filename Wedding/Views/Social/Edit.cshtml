@@ -1,0 +1,62 @@
+﻿@model Wedding.Models.Social.SocialIndexModel
+
+@{
+    ViewBag.Title = "Bilder";
+}
+
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrapadmin">
+    <div class="add_car_big">
+        <article class="formadmin">
+            @if (Model.Blobs.Count < 1)
+            {
+                <center><p>Inga bilder att ändra</p></center>
+            }
+            
+
+
+            @using (Html.BeginForm("Edit", "Social", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div style="display:flex; flex-wrap: wrap; justify-content:space-around;">
+                    @for (int n = 0; n < Model.Blobs.Count; n++)
+                    {
+                        @Html.HiddenFor(model => model.Blobs[n].Id)
+
+                        <div class="admin-imagecontainer">
+                            <div style="background:url('@Model.Blobs[n].ImageUrl'); width: 300px; height: 300px; background-size: contain; background-repeat: no-repeat; margin: 10px; background-position: center;">&nbsp;</div>
+                            <div class="adminchoices">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Blobs[n].Approved)">
+                                    @Html.CheckBoxFor(model => model.Blobs[n].Approved, new { @class = "mdl-checkbox__input" })
+                                    <span class="mdl-checkbox__label">Publicerad</span>
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                    @Html.TextBoxFor(model => model.Blobs[n].ExifCreated, new { @class = "mdl-textfield__input" })
+                                    @Html.LabelFor(model => model.Blobs[n].ExifCreated, "Fotodatum", new { @class = "mdl-textfield__label" })
+                                </div>
+                                
+                            </div>
+                        </div>
+
+
+                    }
+
+                </div>
+
+                <div class="footer-social-admin">
+
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--primary">
+                        <i class="material-icons">save</i>&nbsp; Spara ändringar
+                    </button>
+
+                </div>
+            }
+        </article>
+    </div>
+</div>

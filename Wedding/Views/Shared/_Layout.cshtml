@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="google-signin-client_id" content="372611492777-h4j5l81iotjdtcihmui4534ql3i1ldnm.apps.googleusercontent.com">
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+    <title>Lisa &amp; Magnus @ViewBag.Title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.teal-orange.min.css" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
+    @RenderSection("head", false)
+ 
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-69171400-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+        var didScroll;
+        var lastScrollTop = 0;
+        var delta = 5;
+        var navbarHeight = $('header').outerHeight();
+
+        $(window).scroll(function (event) {
+            didScroll = true;
+        });
+
+        setInterval(function () {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        }, 250);
+
+        function hasScrolled() {
+            var st = $(this).scrollTop();
+
+            if (Math.abs(lastScrollTop - st) <= delta)
+                return;
+
+            if (st > lastScrollTop && st > navbarHeight) {
+                $('header').removeClass('nav-down').addClass('nav-up');
+            } else {
+                if (st + $(window).height() < $(document).height()) {
+                    $('header').removeClass('nav-up').addClass('nav-down');
+                }
+            }
+
+            lastScrollTop = st;
+        }
+
+
+    </script>
+
+
+
+</head>
+<body>
+
+
+
+    @*<div class="mobile-landscape-overlay">
+        <div class="mobile-landscape-overlay-container">
+            <div class="mobile-landscape-overlay-item">
+                <i class="material-icons md-48 md-light">screen_rotation</i>
+            </div>
+            <div class="mobile-landscape-overlay-item">
+                <g>Mobilversionen av lisaochmagnus.net visas bäst i porträttläge.<br /> Rotera din skärm.</g>
+            </div>
+        </div>
+
+    </div>*@
+
+
+    @*<div class="background"></div>*@
+    <div class="jeans"></div>
+    
+    <header class="nav-down">
+
+        <div class="menu_button_canvas mobile_menu">
+            <button id="demo-menu-top-left"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons md-dark">menu</i>
+            </button>
+
+        </div>
+
+
+
+        <div class="bottom_container">
+            <div class="menu_desktop_item">
+                @Html.ActionLink("Start", "Index", "Start")
+            </div>
+            @*<div class="menu_desktop_item">
+                @Html.ActionLink("Information", "Info", "Start")
+            </div>*@
+            <div class="menu_desktop_item">
+                @Html.ActionLink("Vägen till nu", "Story", "Start")
+            </div>
+            @*<div class="menu_desktop_item">
+                @Html.ActionLink("Anmälan", "Index", "Guest")
+            </div>*@
+            <div class="menu_desktop_item">
+                    @Html.ActionLink("Bilder", "Index", "Social")
+                </div>
+            @*<div class="menu_desktop_item">
+                @Html.ActionLink("Kontakt", "Contact", "Start")
+            </div>*@
+        </div>
+
+
+        <div id="logindiv">
+            @{
+                Html.RenderPartial("_CurrentUser");
+            }
+        </div>
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-top-left">
+            <li class="mdl-menu__item"><i class="material-icons">home</i>&nbsp;@Html.ActionLink("Start", "Index", "Start")</li>
+            @*<li class="mdl-menu__item"><i class="material-icons">info_outline</i>&nbsp;@Html.ActionLink("Information", "Info", "Start")</li>*@
+            <li class="mdl-menu__item"><i class="material-icons">import_contacts</i>&nbsp;@Html.ActionLink("Vägen till nu", "Story", "Start")</li>
+            @*<li class="mdl-menu__item"><i class="material-icons">event_available</i>&nbsp; @Html.ActionLink("Anmälan", "Index", "Guest")</li>*@
+            <li class="mdl-menu__item"><i class="material-icons">camera_enhance</i>&nbsp;@Html.ActionLink("Bilder", "Index", "Social")</li>
+            
+            @*<li class="mdl-menu__item"><i class="material-icons">mail</i>&nbsp;@Html.ActionLink("Kontakt", "Contact", "Start")</li>*@
+        </ul>
+
+    </header>
+
+
+    @RenderBody()
+
+    
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
+
+</html>
+

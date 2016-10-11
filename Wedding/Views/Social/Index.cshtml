@@ -1,0 +1,226 @@
+﻿@model Wedding.Models.Social.SocialIndexModel
+
+@{
+    ViewBag.Title = "Bilder";
+}
+
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+
+    <div class="add_car_big">
+        <article class="form">
+            <button onclick="openUpload()" class="mdl-button mdl-js-button mdl-button--primary">
+                <i class="material-icons">backup</i>&nbsp; Ladda upp
+            </button>
+            <br /><br />
+            @if (Model.Currentpage == 1)
+            {
+                <div style="font-size:12px;">
+
+                    Tack för senast!<br />
+                    <tag style="font-size:11px;">
+                        Här får ni gärna ladda upp era bilder direkt från mobil eller dator så att vi kan spara dem för framtiden.<br />
+                        Ladda upp genom att klicka på knappen, välja bilder och verifiera att du inte är en robot.<br />
+                        Det tar en stund att ladda upp många bilder, så tänk på att vara kopplad på wi-fi om möjligt, samt att ladda upp ett par åt gången (<i>Vi vill gärna ha originalstorleken om den finns</i>).
+                        <br />Vi kommer gå igenom och godkänna alla bilder innan de visas här under.
+                    </tag>
+                </div>
+                <br />
+            }
+            <center style="text-transform:uppercase; font-size:12px;">
+                @if (Model.Currentpage > 1)
+            { <a href="@Url.Action("Index", new { page = Model.Currentpage - 1 })">&lt; &nbsp;</a> }
+            Sida @Model.Currentpage av @Model.Pages @if (Model.Pages > Model.Currentpage)
+            { <a href="@Url.Action("Index", new { page = Model.Currentpage + 1 })">&nbsp; &gt;</a> }
+        </center>
+        <div class="gallery" style="display:flex; flex-wrap: wrap; justify-content:space-around; padding-top:20px; border-top:1px dashed #ccc;">
+
+
+            @for (int n = 0; n < Model.Blobs.Count; n++)
+            {
+                <a href="@Model.Blobs[n].ImageUrl" class="swipe" data-rel="gallery">
+                    <img src="@Model.Blobs[n].ImageUrl" style="background:url('@Model.Blobs[n].ImageUrl'); display:block; background-size: cover; background-repeat: no-repeat; margin: 5px; border-radius: 50%; background-position: center; padding: 90px 0 0 0; margin: 10px; width: 90px; height: 0px; display: block; box-shadow: 0 3px 8px 0 #ddd;">
+                </a>
+            }
+
+
+        </div>
+
+        <br />
+        <div style="display:flex; justify-content: space-around; width:100%; height:50px; border:0;">
+            @if (Model.Currentpage > 1)
+            {
+                using (Html.BeginForm("Index", "Social", new { Page = Model.Currentpage - 1 }))
+                {
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--primary">
+                        <i class="material-icons">chevron_left</i> &nbsp; Föregående sida
+                    </button>
+
+                }
+            }
+
+            @if (Model.Pages > Model.Currentpage)
+            {
+                using (Html.BeginForm("Index", "Social", new { Page = Model.Currentpage + 1 }))
+                {
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--primary">
+                        Nästa sida &nbsp;<i class="material-icons">chevron_right</i>
+                    </button>
+
+                }
+            }
+        </div>
+
+        <i style="font-size:10px; color:#ccc;">Tänk på att fråga personerna i bilden om du vill kopiera och lägga ut på Facebook.</i>
+
+    </article>
+</div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+
+{
+    <div class="postfilemessage">
+        <i class="material-icons" style="color:mediumseagreen;">check_circle</i>
+        <br />
+        <p>
+            Tack!<br />
+            Vi har fått dina bilder och kommer gå igenom dem.
+        </p>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+
+
+{
+    <div class="postfilemessage">
+        <i class="material-icons" style="color:indianred;">error</i>
+        <br />
+        <p>
+            Något gick fel, försök igen.<br />
+            <i>(Använd gärna wifi)</i>
+        </p>
+    </div>
+}
+
+
+<div class="fileupload_placeholder open is-paused">
+    <br />
+    <form action="@Url.Action("PostImage", "Social")" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@User.Identity.Name" />
+
+        <br />
+        <center> <input id="my_id" class="fileuploader" name="files" type="file" multiple="multiple" accept=".png,.jpg,.jpeg,.gif,.mov" /></center>
+
+
+        <center><div class="g-recaptcha" data-sitekey="6Le2AiMTAAAAAHL0WagBVjO6Wmo5hTA4aaL-EMIO"></div><br /></center>
+
+        <center><button id="register" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" disabled>Ladda upp </button></center>
+        <br />
+    </form>
+    <center><div class="uploaderhelptext">Tänk på att vara uppkopplad mot Wi-fi om möjligt. Du kan även ladda upp filer i omgångar.</div></center>
+    <center>
+        <button onclick="closeUpload()" class="mdl-button mdl-js-button mdl-button--primary" style="width:100%;">
+            <i class="material-icons">keyboard_arrow_up</i>
+        </button>
+
+    </center>
+
+
+</div>
+<div class="loading-overlay" id="loading1"></div>
+<div class="mdl-spinner-overlay" id="loading2">
+    <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+</div>
+
+
+
+<script type="text/javascript">
+    $('input#my_id').change(function () {
+        var files = $(this)[0].files;
+        if (files.length > 1) {
+
+            $("#register").append(" ").append(files.length).append(" filer");
+            $("#register").prop('disabled', false);
+        } else {
+
+            $("#register").append(" ").append(files.length).append(" fil");
+            $("#register").prop('disabled', false);
+        }
+    });
+
+    $("#register").click(function () {
+        $("#loading1").css("display", "block");
+        $("#loading2").css("display", "block");
+    });
+
+    $.ajax()
+
+</script>
+
+<script type="text/javascript">
+    function openUpload() {
+        document.querySelector('.fileupload_placeholder').classList.remove('is-paused');
+    }
+
+    function closeUpload() {
+        document.querySelector('.fileupload_placeholder').classList.add('is-paused');
+    }
+
+</script>
+
+<script type="text/javascript" src="~/Scripts/simple-lightbox.js"></script>
+<script>
+    $(function () {
+        var $gallery = $('.gallery a').simpleLightbox();
+
+        $gallery.on('show.simplelightbox', function () {
+            console.log('Requested for showing');
+        })
+		.on('shown.simplelightbox', function () {
+		    console.log('Shown');
+		})
+		.on('close.simplelightbox', function () {
+		    console.log('Requested for closing');
+		})
+		.on('closed.simplelightbox', function () {
+		    console.log('Closed');
+		})
+		.on('change.simplelightbox', function () {
+		    console.log('Requested for change');
+		})
+		.on('next.simplelightbox', function () {
+		    console.log('Requested for next');
+		})
+		.on('prev.simplelightbox', function () {
+		    console.log('Requested for prev');
+		})
+		.on('nextImageLoaded.simplelightbox', function () {
+		    console.log('Next image loaded');
+		})
+		.on('prevImageLoaded.simplelightbox', function () {
+		    console.log('Prev image loaded');
+		})
+		.on('changed.simplelightbox', function () {
+		    console.log('Image changed');
+		})
+		.on('nextDone.simplelightbox', function () {
+		    console.log('Image changed to next');
+		})
+		.on('prevDone.simplelightbox', function () {
+		    console.log('Image changed to prev');
+		})
+		.on('error.simplelightbox', function (e) {
+		    console.log('No image found, go to the next/prev');
+		    console.log(e);
+		});
+    });
+</script>

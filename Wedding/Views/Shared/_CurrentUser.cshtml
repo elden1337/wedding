@@ -1,0 +1,17 @@
+﻿
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="user-name">
+            @Html.ActionLink(@User.Identity.Name, "Index", "Manage")
+        </div>
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="user-logoff-button"><i class="material-icons">account_circle</i> Logga ut</button>
+        }
+    }
+    else
+    {
+    <div class="user-login-link material-icons">@Html.ActionLink("account_circle", "Login", new { Controller = "Account" })</div>
+    }

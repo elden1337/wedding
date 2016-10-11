@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = " - Information";
+}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=">
+</script>
+<script type="text/javascript">
+    function initialize() {
+        var styles = [
+        {
+            "featureType": "administrative",
+            "elementType": "labels.text.fill",
+            "stylers": [{ "color": "#6195a0" }]
+        },
+{
+    "featureType": "landscape",
+    "elementType": "all",
+    "stylers": [{ "color": "#f2f2f2" }]
+},
+{
+    "featureType": "landscape",
+    "elementType": "geometry.fill",
+    "stylers": [{ "color": "#ffffff" }]
+},
+{
+    "featureType": "poi",
+    "elementType": "all",
+    "stylers": [{ "visibility": "off" }]
+},
+{
+    "featureType": "poi.place_of_worship",
+    "elementType": "geometry.fill",
+    "stylers": [{ "color": "#e6f3d6" }, { "visibility": "on" }]
+},
+{
+    "featureType": "road",
+    "elementType": "all",
+    "stylers": [{ "saturation": -100 }, { "lightness": 45 }, { "visibility": "on" }]
+},
+{
+    "featureType": "road.local",
+    "elementType": "geometry.fill",
+    "stylers": [
+      { "visibility": "on" },
+      { "color": "#D5FADC" }
+    ]
+}
+  ,
+  {
+      "featureType": "road.local",
+      "elementType": "geometry.stroke",
+      "stylers": [
+        { "visibility": "on" },
+        { "color": "#D5FADC" }
+      ]
+  }
+  ,
+{
+    "featureType": "road.highway",
+    "elementType": "all",
+    "stylers": [{ "visibility": "simplified" }]
+},
+{
+    "featureType": "road.highway",
+    "elementType": "geometry.fill",
+    "stylers": [{ "color": "#98B08A" }, { "visibility": "simplified" }]
+},
+{
+    "featureType": "road.highway",
+    "elementType": "labels.text",
+    "stylers": [{ "color": "#fefefe" }]
+},
+{
+    "featureType": "road.arterial",
+    "elementType": "geometry.fill",
+    "stylers": [{ "color": "#E1EDD1" }, { "visibility": "simplified" }]
+},
+{
+    "featureType": "road.arterial",
+    "elementType": "geometry.stroke",
+    "stylers": [{ "color": "#E1EDD1" }]
+},
+{
+    "featureType": "transit",
+    "elementType": "all",
+    "stylers": [{ "visibility": "on" }]
+},
+{
+    "featureType": "water",
+    "elementType": "all",
+    "stylers": [{ "color": "#eaf6f8" }, { "visibility": "on" }]
+},
+{
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [{ "color": "#eaf6f8" }]
+}
+
+   ,
+        {
+            "featureType": "road",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+        }, {
+            "featureType": "administrative.neighborhood",
+            "elementType": "labels",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+        }
+        ];
+
+        var styledMap = new google.maps.StyledMapType(styles,
+        { name: "Lisa & Magnus" });
+
+        var mapOptions = {
+            zoom: 9,
+            //center: new google.maps.LatLng(58.220122, 11.898565),
+            center: new google.maps.LatLng(58.0, 11.638565),
+            streetViewControl: false,
+            mapTypeControl: false,
+            panControl: true,
+            scrollwheel: false,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            mapTypeControlOptions: {
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+            }
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker1 = new google.maps.Marker({
+            position: { lat: 58.217041, lng: 11.885651 },
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 4,
+                strokeColor: '#ff9d7b',
+                strokeWeight: 3
+            },
+            animation: google.maps.Animation.DROP,
+            map: map,
+            text: 'Ulvön'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: { lat: 58.217434, lng: 11.908396 },
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 4,
+                strokeColor: '#ff9d7b',
+                strokeWeight: 3
+            },
+            animation: google.maps.Animation.DROP,
+            map: map,
+            title: 'Ljungs kyrka'
+        });
+
+
+        var marker3 = new google.maps.Marker({
+            position: { lat: 58.224687, lng: 11.921219 },
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 4,
+                strokeColor: '#ff9d7b',
+                strokeWeight: 3
+            },
+            animation: google.maps.Animation.DROP,
+            map: map,
+            title: 'Ljungskile C'
+        });
+
+        google.maps.event.addListener(marker3, 'mouseover', function () {
+            infowindow.setContent('Ljungskile C');
+            infowindow.open(map, this);
+        });
+        google.maps.event.addListener(marker2, 'mouseover', function () {
+            infowindow.setContent('Ljungs nya kyrka');
+            infowindow.open(map, this);
+        });
+        google.maps.event.addListener(marker1, 'mouseover', function () {
+            infowindow.setContent('Ulvön');
+            infowindow.open(map, this);
+        });
+
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+            <h2 id="top">
+                Välkommen
+            </h2>
+            <br />
+            <div class="info-inline-menu"><a href="#schedule">Schema</a> | <a href="#directions">Hitta hit</a> | <a href="#english">English info</a></div><br /><br />
+            <p class="ingress">
+                Vi ska gifta oss!<br />
+                Vi firar vårt bröllop på Ulvön i Bohuslän den 15-17 juli i sommar! Vigseln är i Ljungs nya kyrka kl. 16 den 16 juli 2016 och efter det firar vi en bröllopsfest på Ulvöns vandrarhem.
+                Här finns information om helgen och på denna hemsida kan du också göra din anmälan.<br />
+                Vi hoppas du kan komma!
+                <br /><br />
+                Utöver lördagens vigsel och bröllopsfest är alla gäster välkomna att spendera resten av
+                helgen på Ulvön för att umgås, grilla, bada och fira. På Ulvön finns ett fint vandrarhem där ni kan boka boende,
+                kryssa i detta i er @Html.ActionLink("anmälan", "Index", "Guest").
+                <br /><br />
+                Vi behöver er slutgiltiga anmälan senast 1 maj men fram till dess är det fritt att gå in att ändra i din anmälan.
+                <br>
+
+                <h4>Boende</h4>
+                <i class="material-icons">local_hotel</i> Vi vill som sagt gärna att ni kommer redan på fredagen och bor över på Ulvön två nätter om ni har möjlighet.
+                <br />Boendet kostar 450 kr per person för en natt och 775 kr för två nätter. Frukost, lakan och slutstädning ingår.<br />
+                Då de flesta sängar finns i sex och åttabäddsstugor kommer vi placera ut er så att alla får plats.
+                <br /><i>
+                    Boende betalas till bankgiro 597-4613, Utopia Moments AB senast 15/6.
+                    Märk betalningen med "Lisa Olsson & Magnus Rydström" samt ditt namn.<br />
+                </i>
+
+                <h4>Klädsel</h4>
+                <i class="material-icons">face</i>Vi har ingen särskild klädkod utan vill att ni ska ta kläder ni känner er fina och bekväma i.
+                Det kan vara bra att tänka på att det troligtvis blir ganska varmt och att vi är på en ö så att det kan vara bra att inte ha för höga klackar.<br /> Ta gärna med er badkläder!<br />
+
+
+                <h4 id="mat">Mat</h4>
+                <i class="material-icons">local_dining</i>
+                På bröllopsfesten kommer maten från Ulvöns vandrarhem och kommer som standard innehålla fisk och skaldjur.
+                Har du några allergier så ange det i din anmälan så anpassar vi detta.
+                <br /><br />
+                Vi kommer att bjuda på en tårtbuffé som de gäster som vill kan vara med och bidra till.
+                Det finns möjlighet att låna kök och kylskåp under lördagen för de som vill tillverka tårta på plats.
+                Gör gärna en liten skylt med vad tårtan innehåller, till våra allergiker.
+                Meddela i anmälan om ni vill bidra med en tårta.
+                <br /><br />
+                För er som bor på Ulvön ingår frukost på lördag och söndag.
+                På lördag dag ansvarar du själv för lunch.
+                I vandrarhemmet finns ett självservicekök.
+                På en halvtimmes gångavstånd ligger <a href="http://bit.ly/1OHw04V" target="_blank">Laxbutiken</a>, och inne i Ljungskile finns både restauranger, café och mataffärer.
+                <br /><br />
+                På fredag planerar vi en grillkväll.
+                Vi ser till att det finns en grill och de som är med redan då får ta med vad ni vill grilla.
+
+
+                <h4>Barn</h4>
+                <i class="material-icons">child_care</i>
+                Då vi har begränsat med plats kan vi tyvärr inte bjuda alla barn som är stora nog att klara sig utan förälder en kväll.<br />
+                De allra minsta barnen är såklart välkomna men meddela detta under övriga kommentarer i anmälan, så vi kan planera utifrån barnen i bordsplacering och boende.<br />
+
+                <h4>Presenter</h4>
+                <i class="material-icons">card_giftcard</i> Det vi önskar oss är att ni kommer och firar denna helg tillsammans med oss.<br />
+                Om ni känner att ni vill ge något utöver detta får ni gärna sätta in en slant till ett välgörande ändamål. Vi kommer när bröllopet närmar sig länka till en insamling här.<br />
+
+                <h4>Tal/spex</h4>
+                <i class="material-icons">mic</i> Om ni vill hålla tal eller göra något framträdande under middagen kontakta våra toastmasters Kajsa & Fredrik. Deras kontaktuppgifter finns under fliken @Html.ActionLink("kontakt", "Contact", "Start").
+                Då vi kommer vara många på festen och vi gärna vill hinna dansa loss med er önskar vi att ni håller er under 3 minuter.<br />
+
+            </p>
+            <br />
+            <hr>
+            <h3 id="schedule">
+                schema
+            </h3>
+
+            <p class="ingress">
+                <i class="material-icons">content_paste</i> För dem av er som kan är vi jätteglada om ni kommer till Ulvön redan på fredagen. <br />Från kl. 15 är incheckningen öppen men det går bra att komma innan och bada.<br />
+            </p>
+
+            Fredag:
+            <ul>
+                <li>från kl 15 - Incheckning på Ulvön</li>
+                <li>kl 18 - Grillen tänds</li>
+                <li>kl 20 - Bastubåten redo för användning</li>
+            </ul>
+            <br>
+            Lördag:
+            <ul>
+                <li>kl 9 - Frukost för övernattande på Ulvön</li>
+                <li>kl 16 - Vigsel i Ljungs kyrka</li>
+                <li>ca kl 18 - Brudparets skål, tillbaka på Ulvön</li>
+                <li>kl 18:30 - Bröllopsfest</li>
+            </ul>
+            <br />
+            Söndag:
+            <ul>
+                <li>kl 9 - Frukost för övernattande på Ulvön</li>
+                <li>kl 11 - Utcheckning</li>
+                <li>kl 11 -> - Dagen-efter-häng</li>
+            </ul>
+            <br><br />
+            <hr />
+            <h3 id="directions">
+                Hitta hit
+            </h3>
+            <div class="map-info-container">
+                <p class="map-info">
+                    <i class="material-icons">directions_bus</i>
+                    Det är jätteenkelt att ta sig till Ulvön med kollektivtrafik. Tåget från Göteborg - Strömstad stannar i Ljungskile, där vi antingen kan försöka ordna med hämtning eller att ni tar bussen den sista biten till Ulvesund som är närmsta busshållplats, 10 minuters gångväg från Ulvön. <br />
+                    Använd gärna <a href="http://goo.gl/IelAkp" target="_blank">Resrobot</a> för att hitta resa från Sverige, Norge och Danmark.
+                    <br><br />
+                    <i class="material-icons">directions_car</i>
+                    Om ni hellre kör bil så kommer avfarten vara nummer 93 på E6. Därefter följer ni vägen åt väster till Ulvesund.<br>
+                    Precis vid busshållplatsen <i>Ulvesundsvägen</i> tar ni vänster förbi ett stort växthus.<br>
+                    Några hundra meter längre fram ligger en parkeringsplats där ni får lämna bilen och gå sista vägen till Ulvön.<br>
+                    Tänk på att parkeringstillstånd kommer att behövas som ni får köpa i lobbyn på Ulvön.<br />
+                    <i>Här är positionen på <a href="https://goo.gl/C5wrm8">Google maps</a> om du vill kolla vägbeskrivning.</i>
+                    <br><br />
+
+                    <i class="material-icons">flight</i>
+                    <b id="english">For those of you travelling from outside continental europe:</b><br />
+                    The airport of Gothenburg Landvetter (GOT) is the closest available. <br />
+                    However, due to more direct flights from the U.S and Iceland, <a href="http://www.skyscanner.se/transport/flights/atl/osl/160714/160718/airfares-from-atlanta-hartsfield-jackson-to-oslo-gardermoen-in-july-2016.html?adults=1&children=0&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false#results" target="_blank">oslo gardemoen (osl)</a> is also worth looking in to.<br />
+                    From GOT you are bounced in to Gothenburg in no time, from there you can catch a train to Ljungskile <a href="bit.ly/1oB6qq3" target="_blank">(click here for time-tables)</a> where we can pick you up.<br /><br />
+                    If you should decide on going to Oslo airport, you need to get yourself to Oslo Gallerian (main bus-terminal), from where you can catch either <a href="http://www.swebus.se/SwebusExpress_com/" target="_blank">Swebus</a> or <a href="http://www.nettbuss.se/sok-kop/nettbuss-express" target="_blank">Nettbuss</a> to the stop of uddevalla torp. <br />
+                    If you need pick-up at Uddevalla Torp we must know in advance.
+                </p><br />
+
+                <br />
+                <div id="map-canvas" class="karta"></div><br />
+                <a href="#top" class="uplink">Upp</a>
+                <br>
+            </div>
+        </article>
+    </div>
+</div>

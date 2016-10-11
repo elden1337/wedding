@@ -1,0 +1,135 @@
+﻿@model Wedding.Models.Guest.ManageGuestsModel
+
+<div class="viewallguests-background"></div>
+<div class="viewallguests-placeholder">
+
+
+
+    @using (Html.BeginForm("ManageGuests", "Guest", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Token)
+        <br /><br /><br />
+        <div style="width:472px; display:flex; margin-left:10px">
+            <div style="border-radius:10px 0 0 10px; background:#68a837; color:#fff; font-size:10px; padding-top:10px; padding-bottom:10px; width:calc(@Model.GuestStatComing.Count * 4px);"><center>@Model.GuestStatComing.Count</center></div>
+            <div style="background:#e44b23; color:#fff; font-size:10px; padding-top:10px; padding-bottom:10px;  width:calc(@Model.GuestStatNotComing.Count * 4px);"><center>@Model.GuestStatNotComing.Count</center></div>
+            <div style="border-radius:0 10px 10px 0 ; background:#ffd682; color:#000; font-size:10px; padding-top:10px; padding-bottom:10px;  width:calc(@Model.GuestStatUndecided.Count * 4px);"><center>@Model.GuestStatUndecided.Count</center></div>
+        </div>
+        
+
+<br />
+            <div style="border-radius:4px; margin-left:10px; margin-bottom:5px; font-size:10px; height:20px; width:calc((@Model.GuestStatFriSat.Count) * 5px); background:#EEE; border:1px solid;"><center>@Model.GuestStatFriSat.Count övernattande fredag</center></div>
+            <div style="border-radius:4px; margin-left: 10px; font-size:10px; height:20px; width:calc((@Model.GuestStatSatSun.Count) * 5px); background: #eee; border:1px solid;"><center>@Model.GuestStatSatSun.Count övernattande lördag</center></div>
+        
+        <br />
+        <h3>Kommer</h3><br />
+                <table class="viewallguests-table">
+                    <thead>
+                        <tr>
+                            <th class="viewallguests-header">Namn</th>
+                            <th class="viewallguests-header" colspan="2">Nätter</th>
+
+                            <th class="viewallguests-header">Övrigt</th>
+                            <th class="viewallguests-header">V+fisk</th>
+                            <th class="viewallguests-header">V+ej fisk</th>
+                            <th class="viewallguests-header">Vegan</th>
+                            <th class="viewallguests-header">Laktos</th>
+                            <th class="viewallguests-header">Gluten</th>
+                            <th class="viewallguests-header">Nötter</th>
+                            <th class="viewallguests-header">Noalco</th>
+                            <th class="viewallguests-header">Tårta</th>
+                            <th class="viewallguests-header">Mat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int n = 0; n < Model.ComingGuests.Count; n++)
+                        {
+                            if (Model.ComingGuests[n].Coming == true)
+                            {
+
+                                <tr class="viewallguests-guest-row">
+                                    <td class="viewallguests-name">@Html.ValueFor(model => model.ComingGuests[n].Name)</td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].FriSat)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].SatSun)</center></td>
+                                    <td class="viewallguests-string">@(Model.ComingGuests[n].BookingComment)</td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].VegAndFish)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].Veg)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].Vegan)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].LactoseIntollerant)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].GlutenIntollerant)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].NutAllergy)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].NonAlco)</center></td>
+                                    <td class="viewallguests-bool"><center>@Html.FormatBool(Model.ComingGuests[n].BringsCake)</center></td>
+                                    <td class="viewallguests-string">@(Model.ComingGuests[n].FoodComment)</td>
+                                </tr>
+
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+    }
+
+
+    <h4>Tackat nej</h4>
+    <table class="viewallguests-table">
+        <thead>
+            <tr>
+                <th class="">Inbjudningskod</th>
+                <th class="">Namn</th>
+                <th class="">Övrigt</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int n = 0; n < Model.ComingGuests.Count; n++)
+            {
+                if (Model.ComingGuests[n].Coming == false && Model.ComingGuests[n].LoginToken != "ulvön" && Model.ComingGuests[n].Updated.Date > DateTime.Today.AddDays(-1000))
+                {
+
+                    <tr class="viewallguests-guest-row">
+                        <td class="viewallguests-name">@Html.ValueFor(model => model.ComingGuests[n].LoginToken)</td>
+                        <td class="viewallguests-name">@Html.ValueFor(model => model.ComingGuests[n].Name)</td>
+                        <td class="viewallguests-string">@Html.ValueFor(model => model.ComingGuests[n].BookingComment)</td>
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+    </table>
+
+    <h4>Inget Svar</h4>
+    <table class="viewallguests-table">
+        <thead>
+            <tr>
+                <th class="">Inbjudningskod</th>
+                <th class="">Namn</th>
+                <th class="">Telefonnummer</th>
+                <th class="">E-post</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int n = 0; n < Model.ComingGuests.Count; n++)
+            {
+                if (Model.ComingGuests[n].Coming == false && Model.ComingGuests[n].LoginToken != "ulvön" && Model.ComingGuests[n].Updated.Date < DateTime.Today.AddDays(-1000))
+                {
+
+                    <tr class="viewallguests-guest-row">
+                        <td>@Html.ValueFor(model => model.ComingGuests[n].LoginToken)</td>
+                        <td>@Html.ValueFor(model => model.ComingGuests[n].Name)</td>
+                        <td>@Html.ValueFor(model => model.ComingGuests[n].Phone)</td>
+                        <td>@Html.ValueFor(model => model.ComingGuests[n].Email)</td>
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>

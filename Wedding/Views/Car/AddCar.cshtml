@@ -1,0 +1,277 @@
+﻿@model Wedding.Models.Car.ManageCarModel
+
+@{
+    ViewBag.Title = "Lägg till bil";
+}
+
+<!--TODO Flytta till style.css-->
+<style type="text/css">
+    select {
+        font-family: inherit;
+        background-color: transparent;
+        width: 100%;
+        max-width:300px;
+        padding: 4px 0;
+        font-size: 16px;
+        color: rgba(0,0,0, 0.45);
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0, 0.12);
+    }
+
+        /* Remove focus */
+        select:focus {
+            outline: none;
+        }
+
+    /* Hide label */
+    .mdl-selectfield label {
+        display: none;
+    }
+
+    /* Use custom arrow */
+    .mdl-selectfield select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .mdl-selectfield {
+        font-family: 'Roboto','Helvetica','Arial',sans-serif;
+        position: relative;
+    }
+
+        .mdl-selectfield:after {
+            position: absolute;
+            top: 0.75em;
+            right: 0.5em;
+            /* Styling the down arrow */
+            width: 0;
+            height: 0;
+            padding: 0;
+            content: '';
+            border-left: .25em solid transparent;
+            border-right: .25em solid transparent;
+            border-top: 0.375em solid rgba(0,0,0, 0.12);
+            pointer-events: none;
+        }
+</style>
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+    <h2>Lägg till bil</h2>
+
+    <div id="locationField" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+        <input id="autocomplete" placeholder="Varifrån åker du?"
+               onfocus="geolocate()" type="text" class="mdl-textfield__input">
+        </div>
+
+        @using (Html.BeginForm("AddCar", "Car", FormMethod.Post))
+
+                {
+            @Html.AntiForgeryToken()
+
+            for (int n = 1; n < 2; n++)
+
+                {
+                <!--dölj detta när sidan funkar-->
+            <br />
+            <br />
+            <br />
+            <div id="address">
+
+                <td class="slimField">
+                    <input class="field" id="street_number"
+                           disabled />
+                </td>
+                <td class="wideField" colspan="2">
+                    <input class="field" id="route"
+                           disabled />
+                </td>
+                <td class="wideField" colspan="1">
+                    <input class="field" id="locality"
+                           disabled />
+                </td>
+                <td class="wideField" colspan="1">
+                    <input class="field" id="latitude" name="AddCar[1].latitude"
+                           disabled />
+                </td>
+               
+                @*@Html.TextBoxFor(model => model.AddCar[n].longitude, new { @class = "mdl-textfield__input" })
+                @Html.TextBoxFor(model => model.AddCar[n].latitude)*@
+                <td class="wideField" colspan="1">
+                    <input class="field" id="longitude" name="AddCar[1].longitude"
+                           disabled />
+                </td>
+            </div>
+            <!-- dölj hit när sidan funkar -->
+
+            <div class="mdl-selectfield">
+                <label>Standard Select</label>
+                <select class="browser-default" id="Arrival_Day" name="AddCar[1].Arrival_day">
+                    <option value="" disabled selected>Vilken dag åker du?</option>
+                    <option value="Fredag">Fredag</option>
+                    <option value="Lördag">Lördag</option>
+                </select>
+            </div>
+            <br />
+            <div class="mdl-selectfield">
+                <label>Standard Select</label>
+                <select class="browser-default" id="Departure_time" name="AddCar[1].Departure_time">
+                    <option value="" disabled selected>Vilken tid?</option>
+                    <option value="6">kl 6</option>
+                    <option value="7">kl 7</option>
+                    <option value="8">kl 8</option>
+                    <option value="9">kl 9</option>
+                    <option value="10">kl 10</option>
+                    <option value="11">kl 11</option>
+                    <option value="12">kl 12</option>
+                    <option value="13">kl 13</option>
+                    <option value="14">kl 14</option>
+                    <option value="15">kl 15</option>
+                    <option value="16">kl 16</option>
+                    <option value="17">kl 17</option>
+                    <option value="18">kl 18</option>
+                    <option value="19">kl 19</option>
+                    <option value="20">kl 20</option>
+                </select>
+            </div>
+            <br />
+            <div class="mdl-selectfield">
+                <label>Standard Select</label>
+                <select class="browser-default" id="Seats" name="AddCar[1].Seats">
+                    
+                    <option value="" disabled selected>Hur många platser har du lediga?</option>
+                    <option value="1">1 plats</option>
+                    <option value="2">2 platser</option>
+                    <option value="3">3 platser</option>
+                    <option value="4">4 platser</option>
+                    <option value="5">5 platser</option>
+                    <option value="6">6 platser</option>
+                </select>
+            </div>
+            <br /><br />
+    }
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Lägg till bil</button>
+
+        }
+
+            <br /><br />
+            <h6>När du lägger till din bil kommer den visas tillsammans med din e-postadress på samåkningssidan.... skriv mer text här</h6>
+
+
+
+            <script>
+
+                var placeSearch, autocomplete;
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name'
+                };
+
+                function initAutocomplete() {
+                    autocomplete = new google.maps.places.Autocomplete(
+                        (document.getElementById('autocomplete')),
+                        { types: ['geocode'] });
+
+                    autocomplete.addListener('place_changed', fillInAddress);
+                }
+
+                // [START region_fillform]
+                function fillInAddress() {
+                    // Get the place details from the autocomplete object.
+                    var place = autocomplete.getPlace();
+
+                    document.getElementById("latitude").value = place.geometry.location.lat();
+                    document.getElementById("longitude").value = place.geometry.location.lng();
+
+                    for (var component in componentForm) {
+                        document.getElementById(component).value = '';
+                        document.getElementById(component).disabled = true;
+                    }
+
+                    // Get each component of the address from the place details
+                    // and fill the corresponding field on the form.
+                    for (var i = 0; i < place.address_components.length; i++) {
+                        var addressType = place.address_components[i].types[0];
+                        if (componentForm[addressType]) {
+                            var val = place.address_components[i][componentForm[addressType]];
+                            document.getElementById(addressType).value = val;
+                        }
+                    }
+                }
+                // [END region_fillform]
+
+                // [START region_geolocation]
+                // Bias the autocomplete object to the user's geographical location,
+                // as supplied by the browser's 'navigator.geolocation' object.
+                function geolocate() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var geolocation = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            var circle = new google.maps.Circle({
+                                center: geolocation,
+                                radius: position.coords.accuracy
+                            });
+
+                            autocomplete.setBounds(circle.getBounds());
+                        });
+                    }
+                }
+
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-baOLOp_5IoBF83swafNfLSI3tH3cLSY&signed_in=true&libraries=places&callback=initAutocomplete"
+                    async defer></script>
+
+
+
+            @*@using (Html.BeginForm("AddCar", "Car", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Token)
+                    <div class="section group">
+
+                        <!-- tänk på .n och fixa formulär för enkelt item-->
+                        <!-- se till att plocka med user-id från aspnetusers-->
+                        <!-- gör lookup med google och plocka lat/lon och ev city-->
+
+                            @Html.HiddenFor(model => model.Guests[n].Id)
+                            @Html.HiddenFor(model => model.Guests[n].Updated, Model.Guests[n].Updated = DateTime.Now)
+
+                                <div class="togglecoming">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Name, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Name, "Namn", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Email, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Email, "E-post", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Phone, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Phone, "Telefonnummer", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    </div>
+                                </div>
+
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Lägg till bil</button>
+                }*@
+
+
+
+
+        </article>
+    </div>
+</div>

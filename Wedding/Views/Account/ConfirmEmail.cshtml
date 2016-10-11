@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Verifiera e-post";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+            <div>
+                
+                    Tack för att du verifierat din e-post.<br />
+                 @Html.ActionLink("Klicka här för att logga in.", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                
+            </div>
+        </article>
+    </div>
+</div>

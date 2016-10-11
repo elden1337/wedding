@@ -1,0 +1,58 @@
+﻿@model Wedding.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0)
+    {
+        <div>
+
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList" class="login-subsection social-container">
+
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    <div class="social-type">
+                        <button type="submit" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"></button>
+
+                        <div class="auth-type-label" @*for="@p.AuthenticationType"*@>
+                            <center>
+                                <i>
+                                    Logga in via
+                                    @{
+                                        if (p.Caption == "Google")
+                                    {
+                                            <i>Gmail</i>
+                                    }
+                                        else if (p.Caption == "Microsoft")
+                                        {
+                                            <i>Hotmail</i>
+                                        }
+                                        else if (p.Caption == "Facebook")
+                                        {
+                                            <i>Facebook</i>
+                                        }
+                                    }
+                            </i>
+                        </center>
+                    </div>
+                </div>
+
+
+                                        @*<div class="mdl-tooltip mdl-tooltip--large" for="@p.AuthenticationType">
+                                            Klicka för att logga in med @p.Caption
+                                        </div>*@
+                                    }
+
+                                </div>
+                                }
+
+
+                                }
+
+                                }

@@ -1,0 +1,1133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="boda_liveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="blog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="posted" Type="datetime" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="maplat" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="maplon" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="mapzoom" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="255" />
+          <Property Name="post" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="free_seats_out" Type="int" Nullable="false" />
+          <Property Name="arriving_day" Type="int" />
+          <Property Name="home_address" Type="varchar" MaxLength="255" />
+          <Property Name="home_lat" Type="varchar" MaxLength="128" />
+          <Property Name="home_lon" Type="varchar" MaxLength="128" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" />
+          <Property Name="departure_time" Type="int" Nullable="false" />
+          <Property Name="arrival_day" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="car_booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guest_id" Type="int" />
+          <Property Name="car_id" Type="int" />
+          <Property Name="route" Type="int" />
+          <Property Name="added" Type="datetime" />
+        </EntityType>
+        <EntityType Name="erikannamedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="media_uri" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="uploaded" Type="datetime" Nullable="false" />
+          <Property Name="filetype" Type="varchar" MaxLength="16" />
+          <Property Name="exif_created" Type="datetime" />
+          <Property Name="approved" Type="bit" />
+          <Property Name="deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guest_id" Type="int" />
+          <Property Name="food_comment" Type="varchar" MaxLength="255" />
+          <Property Name="lactose" Type="bit" />
+          <Property Name="vegan" Type="bit" />
+          <Property Name="vegetarian" Type="bit" />
+          <Property Name="pescetarian" Type="bit" />
+          <Property Name="added" Type="datetime" />
+          <Property Name="gluten" Type="bit" />
+          <Property Name="nut" Type="bit" />
+          <Property Name="bringscake" Type="bit" />
+          <Property Name="nonalco" Type="bit" />
+        </EntityType>
+        <EntityType Name="guest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="phonenumber" Type="varchar" MaxLength="255" />
+          <Property Name="login_token" Type="varchar" MaxLength="255" />
+          <Property Name="coming" Type="bit" />
+          <Property Name="updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="guest_booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guest_id" Type="int" />
+          <Property Name="fri_sat" Type="bit" />
+          <Property Name="sat_sun" Type="bit" />
+          <Property Name="booking_comment" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="media">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="media_owner" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="media_uri" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="uploaded" Type="datetime" Nullable="false" />
+          <Property Name="filetype" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="exif_created" Type="datetime" />
+          <Property Name="exif_width" Type="int" />
+          <Property Name="exif_height" Type="int" />
+          <Property Name="exif_lat" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="exif_lon" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="approved" Type="bit" />
+          <Property Name="deleted" Type="bit" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="playlists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="song" Type="varchar" MaxLength="255" />
+          <Property Name="added" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="guest_id" Type="int" />
+          <Property Name="message" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="toastmessage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="thread_id" Type="int" Nullable="false" />
+          <Property Name="added" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="guest_id" Type="int" />
+          <Property Name="message" Type="ntext" />
+        </EntityType>
+        <EntityType Name="translation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UserTokens">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'boda_live.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__car__user_id__503BEA1C">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__guest_boo__guest__339FAB6E">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="guest_booking" Type="Self.guest_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="guest_booking">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_car_boo__car_i__6EF57B66">
+          <End Role="car" Type="Self.car" Multiplicity="0..1" />
+          <End Role="car_booking" Type="Self.car_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car_booking">
+              <PropertyRef Name="car_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_car_boo__guest__6E01572D">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="car_booking" Type="Self.car_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car_booking">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_food__guest_id__6B24EA82">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_playlis__guest__656C112C">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="playlists" Type="Self.playlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlists">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_toastme__guest__628FA481">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="toastmessage" Type="Self.toastmessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="toastmessage">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="boda_liveModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="blog" EntityType="Self.blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_booking" EntityType="Self.car_booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="erikannamedia" EntityType="Self.erikannamedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="food" EntityType="Self.food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guest" EntityType="Self.guest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guest_booking" EntityType="Self.guest_booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="media" EntityType="Self.media" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="playlists" EntityType="Self.playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="toastmessage" EntityType="Self.toastmessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="translation" EntityType="Self.translation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTokens" EntityType="Self.UserTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__car__user_id__503BEA1C" Association="Self.FK__car__user_id__503BEA1C">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__guest_boo__guest__339FAB6E" Association="Self.FK__guest_boo__guest__339FAB6E">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="guest_booking" EntitySet="guest_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_car_boo__car_i__6EF57B66" Association="Self.FK__x_car_boo__car_i__6EF57B66">
+            <End Role="car" EntitySet="car" />
+            <End Role="car_booking" EntitySet="car_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_car_boo__guest__6E01572D" Association="Self.FK__x_car_boo__guest__6E01572D">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="car_booking" EntitySet="car_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_food__guest_id__6B24EA82" Association="Self.FK__x_food__guest_id__6B24EA82">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_playlis__guest__656C112C" Association="Self.FK__x_playlis__guest__656C112C">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="playlists" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_toastme__guest__628FA481" Association="Self.FK__x_toastme__guest__628FA481">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="toastmessage" EntitySet="toastmessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="boda_liveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="car" Relationship="Self.FK__car__user_id__503BEA1C" FromRole="AspNetUsers" ToRole="car" />
+          <NavigationProperty Name="AspNetRoles" Relationship="boda_liveModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="free_seats_out" Type="Int32" Nullable="false" />
+          <Property Name="home_address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="home_lat" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="home_lon" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="departure_time" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK__car__user_id__503BEA1C" FromRole="car" ToRole="AspNetUsers" />
+          <NavigationProperty Name="car_booking" Relationship="Self.FK__x_car_boo__car_i__6EF57B66" FromRole="car" ToRole="car_booking" />
+          <Property Name="arrival_day" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="car_booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guest_id" Type="Int32" />
+          <Property Name="car_id" Type="Int32" />
+          <Property Name="route" Type="Int32" />
+          <Property Name="added" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="car" Relationship="Self.FK__x_car_boo__car_i__6EF57B66" FromRole="car_booking" ToRole="car" />
+          <NavigationProperty Name="guest" Relationship="Self.FK__x_car_boo__guest__6E01572D" FromRole="car_booking" ToRole="guest" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guest_id" Type="Int32" />
+          <Property Name="food_comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="lactose" Type="Boolean" />
+          <Property Name="vegan" Type="Boolean" />
+          <Property Name="vegetarian" Type="Boolean" />
+          <Property Name="pescetarian" Type="Boolean" />
+          <Property Name="added" Type="DateTime" Precision="3" />
+          <Property Name="gluten" Type="Boolean" />
+          <Property Name="nut" Type="Boolean" />
+          <Property Name="bringscake" Type="Boolean" />
+          <Property Name="nonalco" Type="Boolean" />
+          <NavigationProperty Name="guest" Relationship="Self.FK__x_food__guest_id__6B24EA82" FromRole="food" ToRole="guest" />
+        </EntityType>
+        <EntityType Name="guest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="phonenumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="login_token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="coming" Type="Boolean" />
+          <Property Name="updated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="car_booking" Relationship="Self.FK__x_car_boo__guest__6E01572D" FromRole="guest" ToRole="car_booking" />
+          <NavigationProperty Name="food" Relationship="Self.FK__x_food__guest_id__6B24EA82" FromRole="guest" ToRole="food" />
+          <NavigationProperty Name="guest_booking" Relationship="Self.FK__guest_boo__guest__339FAB6E" FromRole="guest" ToRole="guest_booking" />
+          <NavigationProperty Name="playlists" Relationship="Self.FK__x_playlis__guest__656C112C" FromRole="guest" ToRole="playlists" />
+          <NavigationProperty Name="toastmessage" Relationship="Self.FK__x_toastme__guest__628FA481" FromRole="guest" ToRole="toastmessage" />
+        </EntityType>
+        <EntityType Name="guest_booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guest_id" Type="Int32" />
+          <Property Name="fri_sat" Type="Boolean" />
+          <Property Name="sat_sun" Type="Boolean" />
+          <Property Name="booking_comment" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="guest" Relationship="Self.FK__guest_boo__guest__339FAB6E" FromRole="guest_booking" ToRole="guest" />
+        </EntityType>
+        <EntityType Name="playlists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="added" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="guest_id" Type="Int32" />
+          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="guest" Relationship="Self.FK__x_playlis__guest__656C112C" FromRole="playlists" ToRole="guest" />
+        </EntityType>
+        <EntityType Name="toastmessage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="thread_id" Type="Int32" Nullable="false" />
+          <Property Name="added" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="guest_id" Type="Int32" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="guest" Relationship="Self.FK__x_toastme__guest__628FA481" FromRole="toastmessage" ToRole="guest" />
+        </EntityType>
+        <EntityType Name="translation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserTokens">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__car__user_id__503BEA1C">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_car_boo__car_i__6EF57B66">
+          <End Role="car" Type="Self.car" Multiplicity="0..1" />
+          <End Role="car_booking" Type="Self.car_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car_booking">
+              <PropertyRef Name="car_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_car_boo__guest__6E01572D">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="car_booking" Type="Self.car_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car_booking">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_food__guest_id__6B24EA82">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__guest_boo__guest__339FAB6E">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="guest_booking" Type="Self.guest_booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="guest_booking">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_playlis__guest__656C112C">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="playlists" Type="Self.playlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlists">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__x_toastme__guest__628FA481">
+          <End Role="guest" Type="Self.guest" Multiplicity="0..1" />
+          <End Role="toastmessage" Type="Self.toastmessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="toastmessage">
+              <PropertyRef Name="guest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="boda_liveEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="car" EntityType="Self.car" />
+          <EntitySet Name="car_booking" EntityType="Self.car_booking" />
+          <EntitySet Name="food" EntityType="Self.food" />
+          <EntitySet Name="guest" EntityType="Self.guest" />
+          <EntitySet Name="guest_booking" EntityType="Self.guest_booking" />
+          <EntitySet Name="playlists" EntityType="Self.playlists" />
+          <EntitySet Name="toastmessage" EntityType="Self.toastmessage" />
+          <EntitySet Name="translation" EntityType="Self.translation" />
+          <EntitySet Name="UserTokens" EntityType="Self.UserTokens" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__car__user_id__503BEA1C" Association="Self.FK__car__user_id__503BEA1C">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_car_boo__car_i__6EF57B66" Association="Self.FK__x_car_boo__car_i__6EF57B66">
+            <End Role="car" EntitySet="car" />
+            <End Role="car_booking" EntitySet="car_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_car_boo__guest__6E01572D" Association="Self.FK__x_car_boo__guest__6E01572D">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="car_booking" EntitySet="car_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_food__guest_id__6B24EA82" Association="Self.FK__x_food__guest_id__6B24EA82">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK__guest_boo__guest__339FAB6E" Association="Self.FK__guest_boo__guest__339FAB6E">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="guest_booking" EntitySet="guest_booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_playlis__guest__656C112C" Association="Self.FK__x_playlis__guest__656C112C">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="playlists" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__x_toastme__guest__628FA481" Association="Self.FK__x_toastme__guest__628FA481">
+            <End Role="guest" EntitySet="guest" />
+            <End Role="toastmessage" EntitySet="toastmessage" />
+          </AssociationSet>
+          <EntitySet Name="AspNetRoles" EntityType="boda_liveModel.AspNetRoles" />
+          <AssociationSet Name="AspNetUserRoles" Association="boda_liveModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="C__MigrationHistory" EntityType="boda_liveModel.C__MigrationHistory" />
+          <EntitySet Name="database_firewall_rules" EntityType="boda_liveModel.database_firewall_rules" />
+          <EntitySet Name="media" EntityType="boda_liveModel.media" />
+          <EntitySet Name="blog" EntityType="boda_liveModel.blog" />
+          <EntitySet Name="erikannamedia" EntityType="boda_liveModel.erikannamedia" />
+          </EntityContainer>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="boda_liveModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="AspNetUserRoles">
+          <End Type="boda_liveModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="boda_liveModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="media">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="media_owner" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="media_uri" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uploaded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="filetype" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="exif_created" Type="DateTime" Precision="3" />
+          <Property Name="exif_width" Type="Int32" />
+          <Property Name="exif_height" Type="Int32" />
+          <Property Name="exif_lat" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="exif_lon" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="approved" Type="Boolean" />
+          <Property Name="deleted" Type="Boolean" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="blog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="posted" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="maplat" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="maplon" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="mapzoom" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="post" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="erikannamedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="media_uri" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uploaded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="filetype" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="exif_created" Type="DateTime" Precision="3" />
+          <Property Name="approved" Type="Boolean" />
+          <Property Name="deleted" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="boda_liveModelStoreContainer" CdmEntityContainer="boda_liveEntities">
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.AspNetUserClaims)">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.AspNetUserLogins)">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.AspNetUsers)">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="car">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.car)">
+        <MappingFragment StoreEntitySet="car">
+          <ScalarProperty Name="arrival_day" ColumnName="arrival_day" />
+                <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="free_seats_out" ColumnName="free_seats_out" />
+          <ScalarProperty Name="home_address" ColumnName="home_address" />
+          <ScalarProperty Name="home_lat" ColumnName="home_lat" />
+          <ScalarProperty Name="home_lon" ColumnName="home_lon" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="car_booking">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.car_booking)">
+        <MappingFragment StoreEntitySet="car_booking">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="guest_id" ColumnName="guest_id" />
+          <ScalarProperty Name="car_id" ColumnName="car_id" />
+          <ScalarProperty Name="route" ColumnName="route" />
+          <ScalarProperty Name="added" ColumnName="added" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="food">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.food)">
+        <MappingFragment StoreEntitySet="food">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="guest_id" ColumnName="guest_id" />
+          <ScalarProperty Name="food_comment" ColumnName="food_comment" />
+          <ScalarProperty Name="lactose" ColumnName="lactose" />
+          <ScalarProperty Name="vegan" ColumnName="vegan" />
+          <ScalarProperty Name="vegetarian" ColumnName="vegetarian" />
+          <ScalarProperty Name="pescetarian" ColumnName="pescetarian" />
+          <ScalarProperty Name="added" ColumnName="added" />
+          <ScalarProperty Name="gluten" ColumnName="gluten" />
+          <ScalarProperty Name="nut" ColumnName="nut" />
+          <ScalarProperty Name="bringscake" ColumnName="bringscake" />
+          <ScalarProperty Name="nonalco" ColumnName="nonalco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="guest">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.guest)">
+        <MappingFragment StoreEntitySet="guest">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+          <ScalarProperty Name="login_token" ColumnName="login_token" />
+          <ScalarProperty Name="coming" ColumnName="coming" />
+          <ScalarProperty Name="updated" ColumnName="updated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="guest_booking">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.guest_booking)">
+        <MappingFragment StoreEntitySet="guest_booking">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="guest_id" ColumnName="guest_id" />
+          <ScalarProperty Name="fri_sat" ColumnName="fri_sat" />
+          <ScalarProperty Name="sat_sun" ColumnName="sat_sun" />
+          <ScalarProperty Name="booking_comment" ColumnName="booking_comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="playlists">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.playlists)">
+        <MappingFragment StoreEntitySet="playlists">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="song" ColumnName="song" />
+          <ScalarProperty Name="added" ColumnName="added" />
+          <ScalarProperty Name="guest_id" ColumnName="guest_id" />
+          <ScalarProperty Name="message" ColumnName="message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="toastmessage">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.toastmessage)">
+        <MappingFragment StoreEntitySet="toastmessage">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="thread_id" ColumnName="thread_id" />
+          <ScalarProperty Name="added" ColumnName="added" />
+          <ScalarProperty Name="guest_id" ColumnName="guest_id" />
+          <ScalarProperty Name="message" ColumnName="message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="translation">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.translation)">
+        <MappingFragment StoreEntitySet="translation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTokens">
+      <EntityTypeMapping TypeName="IsTypeOf(boda_liveModel.UserTokens)">
+        <MappingFragment StoreEntitySet="UserTokens">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="boda_liveModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="boda_liveModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="boda_liveModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="boda_liveModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="media">
+            <EntityTypeMapping TypeName="boda_liveModel.media">
+              <MappingFragment StoreEntitySet="media">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="exif_lon" ColumnName="exif_lon" />
+                <ScalarProperty Name="exif_lat" ColumnName="exif_lat" />
+                <ScalarProperty Name="exif_height" ColumnName="exif_height" />
+                <ScalarProperty Name="exif_width" ColumnName="exif_width" />
+                <ScalarProperty Name="exif_created" ColumnName="exif_created" />
+                <ScalarProperty Name="filetype" ColumnName="filetype" />
+                <ScalarProperty Name="uploaded" ColumnName="uploaded" />
+                <ScalarProperty Name="media_uri" ColumnName="media_uri" />
+                <ScalarProperty Name="media_owner" ColumnName="media_owner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="blog">
+            <EntityTypeMapping TypeName="boda_liveModel.blog">
+              <MappingFragment StoreEntitySet="blog">
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="mapzoom" ColumnName="mapzoom" />
+                <ScalarProperty Name="maplon" ColumnName="maplon" />
+                <ScalarProperty Name="maplat" ColumnName="maplat" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="posted" ColumnName="posted" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="erikannamedia">
+            <EntityTypeMapping TypeName="boda_liveModel.erikannamedia">
+              <MappingFragment StoreEntitySet="erikannamedia">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="exif_created" ColumnName="exif_created" />
+                <ScalarProperty Name="filetype" ColumnName="filetype" />
+                <ScalarProperty Name="uploaded" ColumnName="uploaded" />
+                <ScalarProperty Name="media_uri" ColumnName="media_uri" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="c9d6e2c8d1d64a7c988eace7ef8b82f0" Name="Diagram1" ZoomLevel="45">
+        <EntityTypeShape EntityType="boda_liveModel.AspNetUserClaims" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.AspNetUserLogins" Width="1.5" PointX="3.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.AspNetUsers" Width="1.5" PointX="1.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.car" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.car_booking" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.food" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.guest" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.guest_booking" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.playlists" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.toastmessage" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.translation" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.UserTokens" Width="1.5" PointX="5.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.database_firewall_rules" Width="1.5" PointX="7.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.media" Width="1.5" PointX="8.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.blog" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="boda_liveModel.erikannamedia" Width="1.5" PointX="10.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="boda_liveModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__car__user_id__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__x_car_boo__car_i__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__x_car_boo__guest__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__x_food__guest_id__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__guest_boo__guest__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__x_playlis__guest__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.FK__x_toastme__guest__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="boda_liveModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

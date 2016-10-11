@@ -1,0 +1,56 @@
+﻿@model Wedding.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+
+                    <h3>Skapa ett nytt användarkonto</h3>
+    <div>
+        Ditt lösenord måste innehålla minst 6 tecken.<br />
+        E-mailadressen du fyller i blir ditt användarnamn. Vi kommer använda den för att kontakta dig vid behov.<br />
+        Tänk på att ditt lösenord här inte är din anmälningskod.
+    </div>
+                <br />
+    <div class="login-subsection">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            @Html.TextBoxFor(model => model.Email, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(model => model.Email, "E-post", new { @class = "mdl-textfield__label" })
+        </div><br />
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            @Html.PasswordFor(model => model.Password, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(model => model.Password, "Hitta på ett lösenord", new { @class = "mdl-textfield__label" })
+        </div><br />
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(model => model.ConfirmPassword, "Upprepa lösenord", new { @class = "mdl-textfield__label" })
+        </div><br />
+
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Skapa konto</button>
+      
+    </div>
+    @Html.ValidationSummary()
+            }
+        </article>
+        </div>
+    </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+
+

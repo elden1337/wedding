@@ -1,0 +1,95 @@
+﻿@using Wedding.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Logga in";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form center">
+            <h2>inloggning</h2>
+            <h5 style="padding-bottom:0; text-transform:none; padding-left:30px;">
+                Hej.<br />
+                Snart kommer du kunna fylla i din anmälningskod. Men först måste vi be dig logga in på vår sida.<br />
+                Om du har Facebook, Gmail eller Hotmail kan du klicka på knapparna här nedanför för att logga in.<br />
+                Om du inte vill det kan du @Html.ActionLink("skapa ett konto här", "Register", "Account") direkt här på lisaochmagnus.net.<br />
+                <i><h6>(Vi ser inte dina inloggningsuppgifter och sparar ingen info utöver det du anger i din anmälan.)</h6></i>
+                
+            </h5>
+            <div class="login-placeholder">
+                <div class="login-section" style="padding-bottom:0;">
+                    <div class="login-subsection">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                        <h5 style="padding-top:0;">
+                            <center>
+                                <i>Eller</i><br />
+                                @Html.ActionLink("Skapa ett konto på lisaochmagnus.net", "Register", "Account")
+                                <br />
+                                <br />
+                                <br />
+                                <hr />
+                                Om du varit här förut och redan har ett konto hos oss. Klicka <a href="#" onclick="toggle_visibility('LocalLogin');">här</a> för att logga in.
+                            </center>
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="login-section">
+                    <div class="@*login-subsection*@ local-account-box" id="LocalLogin">
+                        <div style="float:right;"><a href="#" onclick="toggle_visibility('LocalLogin');"><i class="material-icons">close</i></a></div>
+                        <div style="font-size:9px; color:orange; opacity:0.5; width:90%;">Gäller endast konton hos lisaochmagnus.net. Använd inte om du tidigare loggat in via Gmail, Facebook eller Hotmail.</div>
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "mdl-textfield__input" })
+                                @Html.LabelFor(model => model.Email, "E-post", new { @class = "mdl-textfield__label" })
+                            </div>
+                            <br />
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                @Html.PasswordFor(model => model.Password, new { @class = "mdl-textfield__input" })
+                                @Html.LabelFor(model => model.Password, "Lösenord", new { @class = "mdl-textfield__label" })
+                            </div>
+
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.RememberMe)">
+                                @Html.CheckBoxFor(model => model.RememberMe, new { @class = "mdl-checkbox__input" })
+                                <span class="mdl-checkbox__label">Kom ihåg mig</span>
+                            </label>
+                            <br /><br />
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Logga in</button>
+                        }
+                        <br />
+                        @Html.ActionLink("Glömt lösenord?", "ForgotPassword", "Account")
+                        <br />
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </div>
+</div>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

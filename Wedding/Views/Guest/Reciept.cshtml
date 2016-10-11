@@ -1,0 +1,113 @@
+﻿@model Wedding.Models.Guest.ManageGuestsModel
+
+@{
+    ViewBag.Title = "- Anmälningskvitto";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+<div class="add_car_big">
+    <article class="form">
+
+        <div class="section group">
+            <center><h2>Tack för din anmälan!</h2></center>
+
+
+            <table class="reciept-person">
+                <tr>
+                <thead>
+                    <tr>
+                        <th class=""></th>
+                        <th class=""></th>
+                        <th class=""></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int n = 0; n < Model.Guests.Count; n++)
+                    {
+                        if (Model.Guests[n].Coming == true)
+                        {
+                            <tr>
+                                <td class="reciept-item"><center>@Model.Guests[n].Name</center></td>
+                                @if (Model.Guests[n].FriSat == true && Model.Guests[n].SatSun == true)
+                                {
+                                    <td class="reciept-item"><center>2 nätter</center></td>
+                                    <td class="reciept-item"> <center><b>775 kr</b></center></td>
+                                }
+                                else if (Model.Guests[n].FriSat == true || Model.Guests[n].SatSun == true)
+                                {
+                                    <td class="reciept-item"><center>1 natt</center></td>
+                                    <td class="reciept-item"><center><b>450 kr</b></center></td>
+                                }
+                                else
+                                {
+                                    <td class="reciept-item"></td>
+                                }
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+
+            </table>
+
+
+            <table class="reciept-person">
+                <tr>
+                <thead>
+                    <tr>
+                        <th class=""></th>
+                        <th class=""></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int n = 0; n < Model.Guests.Count; n++)
+                    {
+                        if (Model.Guests[n].Coming != true)
+                        {
+                            <tr>
+                                <td class="reciept-not-coming reciept-item"><center>@Model.Guests[n].Name</center></td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <br />
+        <center>
+            Anmälan kan ändras innan 1/5. <br />
+            Om du bokat övernattning så sker betalning via bankgiro 597-4613, Utopia Moments AB senast 15/6.
+            <br />Märk betalningen med "Lisa Olsson & Magnus Rydström" samt ditt namn.
+        </center>
+        <table class="calendar-placeholder">
+            <tr>
+                <td class="add-to-calendar">
+                    <i class="material-icons">event</i>
+
+                    <a href="~/Content/Bröllop Lisa & Magnus.ics">Lägg till i kalender</a>
+                </td>
+            </tr>
+        </table>
+        @if (Model.Guests.Count < 2)
+        {
+            <center><h3>Välkommen!</h3></center>
+        }
+        else
+        {
+            <center><h2>Välkomna!</h2></center>
+        }
+        <div class="krabba2"></div>
+    </article>
+    </div>
+    </div>
+

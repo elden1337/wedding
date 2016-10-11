@@ -1,0 +1,82 @@
+﻿@model Wedding.Models.Car.ManageCarModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+            <h2>Samåkning</h2>
+
+            <div class="car-add">
+
+                @Html.ActionLink("Lägg till ny bil", "Addcar", "Car")
+                &nbsp;<i class="material-icons">add_circle_outline</i>
+            </div>
+            <br /><br />
+
+
+            @for (int n = 0; n < Model.Cars.Count; n++)
+            {
+                <div class="car-container">
+                    <div class="car-item">
+                        <div class="car-item-title">@Model.Cars[n].Home_Address</div>
+                        <div class="car-item-departure">@Model.Cars[n].Arrival_Day kl @Model.Cars[n].Departure_time</div>
+
+                        <div>@Model.Cars[n].User</div>
+                        <div class="car-item-seats-placeholder"><div class="car-item-seats-text">Lediga platser:</div><div class="car-item-seats">@Model.Cars[n].Seats</div></div>
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.Cars[n].latitude,@Model.Cars[n].longitude&&markers=color:orange|@Model.Cars[n].latitude,@Model.Cars[n].longitude&zoom=10&size=200x80" class="car-item-map">
+                        <div class="car-item-lastrow">
+
+                            <div class="mdl-selectfield">
+                                <select class="browser-default" id="@Model.Cars[n].Id" name="@Model.Cars[n].Id">
+                                    <option value="" disabled selected>Välj antal platser</option>
+                                    @{
+                                        var i = 1;
+                                        while (i <= @Model.Cars[n].Seats)
+                                        {
+                                            <option value="@i">@i</option>
+                                            i += 1;
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <button class="car-item-book mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Boka</button>
+                        </div>
+                    </div>
+                </div>
+                                        }
+
+
+
+
+
+        </article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+    <br>
+
+</div>

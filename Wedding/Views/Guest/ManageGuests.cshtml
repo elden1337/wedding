@@ -1,0 +1,165 @@
+﻿@model Wedding.Models.Guest.ManageGuestsModel
+
+@{
+    ViewBag.Title = "Anmälningsformulär";
+}
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+            <br /><br />
+
+
+                <div style="color:red; font-size:14px;">
+                    OSA-datumet har passerat. Om du behöver göra en sen ändring, ring Magnus på 0707-653246.<br /><br />
+                    The RSVP has passed. If you need to change your booking, call Magnus at +46 707 653 246
+                </div>
+                <div class="guest-info">
+                    Vi hoppas du kan komma och fira vårt bröllop tillsammans med oss!
+                    Det går att göra ändringar i anmälan fram till sista anmälningsdatum 1 maj 2016.
+                    Mer info kring plats, tider och boende hittar du under fliken @Html.ActionLink("information", "Info", "Start").<br />
+
+                    @if (Model.Guests.Count > 1)
+                    {
+                        <br /><f style="color:orangered; font-size:13px;">
+                            Då vi har begränsat med plats kan vi tyvärr inte bjuda alla barn som är stora nog att klara sig utan förälder en kväll.
+                            De allra minsta barnen är såklart välkomna men meddela detta under övriga kommentarer så vi kan planera utifrån barnen i bordsplacering och boende.
+                        </f>
+                    }
+
+                    @if (Model.Token == "goding")
+                    {
+                        <br /><f style="color:orangered; font-size:13px;">
+                            Då vi har begränsat med plats kan vi tyvärr inte bjuda alla barn som är stora nog att klara sig utan förälder en kväll.
+                            De allra minsta barnen är såklart välkomna men meddela detta under övriga kommentarer så vi kan planera utifrån barnen i bordsplacering och boende.
+                        </f>
+                    }
+                </div>
+
+                @using (Html.BeginForm("ManageGuests", "Guest", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Token)
+                    <div class="section group">
+                        @for (int n = 0; n < Model.Guests.Count; n++)
+                        {
+
+                            @Html.HiddenFor(model => model.Guests[n].Id)
+                            @Html.HiddenFor(model => model.Guests[n].Updated, Model.Guests[n].Updated = DateTime.Now)
+                            <div class="col span_1_of_2">
+                                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].Coming)">
+                                    @Html.CheckBoxFor(model => model.Guests[n].Coming, new { @class = "mdl-switch__input" })
+                                    <span class="mdl-switch__label">
+                                        Jag kommer
+                                    </span>
+                                </label>
+
+                                <div class="togglecoming">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Name, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Name, "Namn", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Email, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Email, "E-post", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                        @Html.TextBoxFor(model => model.Guests[n].Phone, new { @class = "mdl-textfield__input" })
+                                        @Html.LabelFor(model => model.Guests[n].Phone, "Telefonnummer", new { @class = "mdl-textfield__label" })
+                                    </div>
+
+                                    <div class="food-container">
+                                        <h3><i class="material-icons">restaurant_menu</i>&nbsp;Specialkost:</h3>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].VegAndFish)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].VegAndFish, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Vegetarian (äter fisk)</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].Veg)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].Veg, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Vegetarian (äter inte fisk)</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].Vegan)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].Vegan, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Vegan</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].LactoseIntollerant)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].LactoseIntollerant, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Laktosintolerant</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].GlutenIntollerant)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].GlutenIntollerant, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Glutenintolerant</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].NutAllergy)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].NutAllergy, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Nötallergi</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].NonAlco)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].NonAlco, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Alkoholfri dryck</span>
+                                        </label>
+
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                            @Html.TextAreaFor(model => model.Guests[n].FoodComment, new { @class = "mdl-textfield__input" })
+                                            @Html.LabelFor(model => model.Guests[n].FoodComment, "Övriga kommentarer om specialkost", new { @class = "mdl-textfield__label" })
+                                        </div>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].BringsCake)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].BringsCake, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Ja, jag tar gärna med en tårta!</span>
+                                        </label><br />
+                                        <i>Du som vill bidra till tårtbuffén kan läsa mer under <a href="http://lisaochmagnus.net/start/info#mat">Information</a>.</i><br />
+
+                                    </div>
+
+
+                                    <div class="sleep-container">
+                                        <h3><i class="material-icons">local_hotel</i>&nbsp;Övernattning:</h3>
+                                        <div class="sleep-container-information">
+                                            Kryssa i här om du vill bo över på Ulvön (del av stuga). <br />Övernattning kostar 450 kr för en natt eller 775 kr för två nätter. <br />Lakan, frukost och slutstädning ingår. <br />
+                                            <h7>Betalning sker via bankgiro 597-4613, Utopia Moments AB.<br /> Märk inbetalning med "Lisa Olsson&Magnus Rydström" och ditt namn</h7>
+                                        </div><br />
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].FriSat)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].FriSat, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Fre (15/7) - Lör (16/7)</span>
+                                        </label>
+
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Guests[n].SatSun)">
+                                            @Html.CheckBoxFor(model => model.Guests[n].SatSun, new { @class = "mdl-checkbox__input" })
+                                            <span class="mdl-checkbox__label">Lör (16/7) - Sön (17/7)</span>
+                                        </label>
+                                        <br /><br />
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                            @Html.TextAreaFor(model => model.Guests[n].BookingComment, new { @class = "mdl-textfield__input" })
+                                            @Html.LabelFor(model => model.Guests[n].BookingComment, "Övrigt du vill meddela oss", new { @class = "mdl-textfield__label" })
+                                        </div>
+
+                                        <hr />
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                  <!--  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Skicka in till Lisa & Magnus</button>-->
+                
+            }
+        </article>
+    </div>
+
+</div>

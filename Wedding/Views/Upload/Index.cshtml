@@ -1,0 +1,66 @@
+﻿@model Wedding.Models.Upload.UploadModel
+
+@{
+    ViewBag.Title = " Upload";
+}
+<style type="text/css">
+   input#File {
+  display: inline-block;
+  padding: 20px 0 0 0;
+  height:20px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+</style>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+
+<div class="body_wrap">
+    <div class="add_car_big">
+        <article class="form">
+
+
+            @using (Html.BeginForm("Result", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                    @Html.TextBoxFor(model => Model.File, new { @class = "mdl-textfield__input", type = "file", multiple = "true" })
+                    @Html.LabelFor(model => Model.File, "Välj filer", new { @class = "mdl-textfield__label" })
+                </div>
+
+                <br /><br />
+
+                <div class="g-recaptcha" data-sitekey="6Le2AiMTAAAAAHL0WagBVjO6Wmo5hTA4aaL-EMIO"></div>
+
+   <br /><br />
+
+<img id="uploadPreview" style="width: 100px; height: 100px;" />
+<input id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
+            <script type="text/javascript">
+
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+
+            </script>
+
+            <br /><br />
+
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Ladda upp</button>
+
+            }
+
+        </article>
+    </div>
+</div>

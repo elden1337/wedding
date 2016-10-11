@@ -1,0 +1,64 @@
+﻿@model Wedding.Models.Social.SocialIndexModel
+
+@{
+    ViewBag.Title = "Bilder";
+}
+
+
+<div class="krabba"></div>
+<div class="flower2"></div>
+<div class="flower"></div>
+
+<div class="body_wrapadmin">
+    <div class="add_car_big">
+        <article class="formadmin">
+            @if (Model.Blobs.Count < 1)
+            {
+                <center><p>Inga bilder att godkänna</p></center>
+            }
+            else
+            {
+                   <center><p>@Model.Blobs.Count bilder att godkänna.</p></center>
+            }
+
+
+            @using (Html.BeginForm("Admin", "Social", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div style="display:flex; flex-wrap: wrap; justify-content:space-around;">
+                    @for (int n = 0; n < Model.Blobs.Count; n++)
+                    {
+                        @Html.HiddenFor(model => model.Blobs[n].Id)
+
+                        <div class="admin-imagecontainer">
+                            <div style="background:url('@Model.Blobs[n].ImageUrl'); width: 300px; height: 300px; max-width: 300px; max-height: 300px; background-size: contain; background-repeat: no-repeat; margin: 10px; background-position: center;">&nbsp;</div>
+                            <div class="adminchoices">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Blobs[n].Approved)">
+                                    @Html.CheckBoxFor(model => model.Blobs[n].Approved, new { @class = "mdl-checkbox__input" })
+                                    <span class="mdl-checkbox__label">Publicera</span>
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="@Html.IdFor(model => model.Blobs[n].Deleted)">
+                                    @Html.CheckBoxFor(model => model.Blobs[n].Deleted, new { @class = "mdl-checkbox__input" })
+                                    <span class="mdl-checkbox__label">Ta bort</span>
+                                </label><br />
+                                <i>@Model.Blobs[n].MediaOwner</i>
+                            </div>
+                        </div>
+
+
+                    }
+
+                </div>
+
+                <div class="footer-social-admin">
+
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--primary">
+                        <i class="material-icons">save</i>&nbsp; Spara ändringar
+                    </button>
+
+                </div>
+            }
+        </article>
+    </div>
+</div>
