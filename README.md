@@ -32,6 +32,7 @@ Part of the first upload to blob:<br>
 <br>
 In order to read the EXIF-data from the uploaded images (for sorting on date-taken), I had to play around quite a bit. I solved it like this:<br>
 ```c#
+
  file.InputStream.Position = 0;
 
         byte[] imageData = new byte[file.ContentLength];
