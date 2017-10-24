@@ -76,7 +76,7 @@ In order to read the EXIF-data from the uploaded images (for sorting on date-tak
         }
 
 ```
-<br>
+
 A quick schema of the upload and image-resize through webjob *(webjob not present in this repo)*<br>
 ![webjob schema](/Readmefiles/azure_webjob_schema.jpg)<br><br>
 
